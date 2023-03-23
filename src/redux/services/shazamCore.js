@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+
 export const shazamCoreApi = createApi({
   reducerPath: 'shazamCoreApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://shazam.p.rapidapi.com',
+    baseUrl: 'https://shazam-core.p.rapidapi.com',
     prepareHeaders: (headers) => {
       headers.set('X-RapidAPI-Key', import.meta.env.VITE_SHAZAM_CORE_RAPID_API_KEY)
 
@@ -11,9 +12,11 @@ export const shazamCoreApi = createApi({
     }
   }),
   endpoints: (builder) => ({
-    getTopCharts: builder.query({query: () => '/shazam-songs/list-similarities?id=track-similarities-id-424767377&locale=en-US'}),
-    getSongDetails: builder.query({query: ({songid}) => `/songs/get-details?song_id=${songid}`}),
-    getSongRelated: builder.query({ query: ({ songid }) => `/tracks/related?track_id=${songid}` }),
+    getTopCharts: builder.query({query: () => `v1/charts/country?country_code=${'RU'}`}),
+    getSongDetails: builder.query({ query: ({ songid }) => `v1/tracks/details?track_id=${songid}` }),
+    getSongRelated: builder.query({ query: ({ songid }) => `v1/tracks/related?track_id=${songid}` }),
+    getArtistDetails: builder.query({ query: (artistId) => `v2/artists/details?artist_id=${artistId}` }),
+    getSongsByCountry: builder.query({ query: () => `v1/charts/country?country_code=${'KZ'}` }),
   })
 
 })
@@ -21,5 +24,7 @@ export const shazamCoreApi = createApi({
 export const {
   useGetTopChartsQuery,
   useGetSongDetailsQuery,
-  useGetSongRelatedQuery
+  useGetSongRelatedQuery,
+  useGetArtistDetailsQuery,
+  useGetSongsByCountryQuery,
 } = shazamCoreApi

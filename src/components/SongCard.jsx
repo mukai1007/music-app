@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import PlayPause from "./PlayPause";
 import { playPause, setActiveSong } from '../redux/features/playerSlice';
 
+
 const SongCard = ({song, isPlaying, activeSong, data, i}) => { 
 
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const SongCard = ({song, isPlaying, activeSong, data, i}) => {
             handlePlay={handlePlayClick}
           />
         </div>
-        <img alt="song_img" src={song.images.background} className="w-full h-full rounded-lg" />
+        <img alt="song_img" src={song.images?.coverart} className="w-full h-full rounded-lg" />
       </div>
 
       <div className="mt-4 flex flex-col">
